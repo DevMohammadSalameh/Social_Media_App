@@ -1,5 +1,7 @@
 
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class LoginStates {}
 
 class LoginInitialState extends LoginStates {}
@@ -7,9 +9,9 @@ class LoginInitialState extends LoginStates {}
 class LoginLoadingState extends LoginStates {}
 
 class LoginSuccessState extends LoginStates {
-  final Success;
+  final User? user;
 
-  LoginSuccessState(this.Success);
+  LoginSuccessState(this.user);
 }
 
 class LoginErrorState extends LoginStates {

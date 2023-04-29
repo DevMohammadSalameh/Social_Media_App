@@ -1,5 +1,3 @@
-import '../network/local/cache_helper.dart';
-import 'components.dart';
 
 void printFullText(String text)
 {
@@ -7,3 +5,4 @@ void printFullText(String text)
   pattern.allMatches(text).forEach((match) => print(match.group(0)));
 }
 
+String? uId;

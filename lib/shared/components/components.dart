@@ -47,15 +47,20 @@ Widget defaultButton({
     );
 
 Widget defaultTextButton({
+  btnWidth = double.infinity,
+  btnHeight = 40.0,
+  background = primaryColor,
+  borderRadius = 10.0,
   required function,
   required child,
 }) =>
     TextButton(
       style: ButtonStyle(
-        fixedSize: const MaterialStatePropertyAll(Size(double.maxFinite, 40)),
-        backgroundColor: const MaterialStatePropertyAll(primaryColor),
+        minimumSize: MaterialStateProperty.all(Size(btnWidth, btnHeight)),
+        maximumSize: MaterialStateProperty.all(Size(btnWidth, btnHeight)),
+        backgroundColor: MaterialStateProperty.all(background),
         shape: MaterialStatePropertyAll(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius))),
       ),
       onPressed: function,
       child: child,

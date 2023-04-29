@@ -36,28 +36,6 @@ class RegisterScreen extends StatelessWidget {
               navigateAndFinish(context, LoginScreen());
             }
           }
-          // if (state is RegisterSuccessState) {
-          //   if (state.registerModel.status) {
-          //     CacheHelper.setData(
-          //             key: "token", value: state.registerModel.data!.token)
-          //         .then((value) {
-          //       token = state.registerModel.data!.token;
-          //       showToast(
-          //           text: state.registerModel.message as String,
-          //           state: ToastStates.SUCCESS);
-          //       navigateAndFinish(context, LoginScreen());
-          //     });
-          //   } else {
-          //     showToast(
-          //         text: state.registerModel.message as String,
-          //         state: ToastStates.ERROR);
-          //   }
-          // }
-          // else{
-          //   if(state is RegisterErrorState){
-          //     showToast(text: state.Error.toString(), state: ToastStates.ERROR);
-          //   }
-          // }
         },
         builder: (context, state) => Scaffold(
           body: Padding(
@@ -175,6 +153,9 @@ class RegisterScreen extends StatelessWidget {
                                   phone: phoneController.text);
                             }
                           },
+                          btnWidth: double.infinity,
+                          btnHeight: 40.0,
+                          background: primaryColor,
                           child: ConditionalBuilder(
                             condition: state is! RegisterLoadingState,
                             builder: (context) => Text(

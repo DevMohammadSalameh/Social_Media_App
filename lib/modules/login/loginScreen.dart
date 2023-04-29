@@ -4,6 +4,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/modules/home/home_screen.dart';
+import 'package:social_app/shared/network/local/cache_helper.dart';
 import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
 import '../register/registerScreen.dart';
@@ -29,7 +30,9 @@ class LoginScreen extends StatelessWidget {
           }
           if(state is LoginSuccessState){
             showToast(text: "Login Success", state: ToastStates.SUCCESS);
-            navigateAndFinish(context, HomeScreen());
+            CacheHelper.setData(key: 'uId', value: state.user!.uid).then((value) {
+              navigateAndFinish(context, HomeScreen());
+            });
           }
         },
         builder: (context, state) => Scaffold(
@@ -114,6 +117,7 @@ class LoginScreen extends StatelessWidget {
                                   password: passwordController.text);
                             }
                           },
+                          background: primaryColor,
                           child: ConditionalBuilder(
                             condition: state is! LoginLoadingState,
                             builder: (context) => Text(
