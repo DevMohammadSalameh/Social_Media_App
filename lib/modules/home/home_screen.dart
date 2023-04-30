@@ -5,6 +5,9 @@ import 'package:social_app/modules/home/cubit/home_cubit.dart';
 import 'package:social_app/modules/home/cubit/home_states.dart';
 import 'package:social_app/shared/styles/colors.dart';
 
+import '../../shared/components/components.dart';
+import '../new_post/new_post_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -13,41 +16,47 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit()..getUserDate(),
       child: BlocConsumer<HomeCubit, HomeStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is HomeNewPostState) {
+            navigateTo(context, const NewPostScreen());
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             body: ConditionalBuilder(
               condition: HomeCubit.get(context).userModel != null,
               builder: (context) => Scaffold(
-                appBar: AppBar(
-                  title: Text(HomeCubit.get(context)
-                      .titles[HomeCubit.get(context).currentIndex]),
-                  actions: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.notifications),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.search),
-                    ),
-                  ],
-                ),
-                body: HomeCubit.get(context).screens[
-                    HomeCubit.get(context).currentIndex],
+
+                appBar: buildAppBar(context, HomeCubit.get(context).currentIndex),
+                body: HomeCubit.get(context)
+                    .screens[HomeCubit.get(context).currentIndex],
                 bottomNavigationBar: BottomNavigationBar(
                   items: const [
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.home),
-                        label: "Home",
-                        backgroundColor: primaryColor,),
+                      icon: Icon(Icons.home),
+                      label: "Home",
+                      backgroundColor: primaryColor,
+                    ),
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.chat), label: "Chats",backgroundColor: primaryColor,),
-                    // BottomNavigationBarItem(icon: Icon(Icons.add_box_outlined), label: "Post",backgroundColor: primaryColor,),
+                      icon: Icon(Icons.chat),
+                      label: "Chats",
+                      backgroundColor: primaryColor,
+                    ),
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.person), label: "Users",backgroundColor: primaryColor,),
+                      icon: Icon(Icons.add_box_outlined),
+                      label: "Post",
+                      backgroundColor: primaryColor,
+                    ),
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.settings), label: "Settings",backgroundColor: primaryColor,),
+                      icon: Icon(Icons.person),
+                      label: "Users",
+                      backgroundColor: primaryColor,
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.settings),
+                      label: "Settings",
+                      backgroundColor: primaryColor,
+                    ),
                   ],
                   currentIndex: HomeCubit.get(context).currentIndex,
                   onTap: (index) {
@@ -61,6 +70,25 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+  AppBar? buildAppBar(context,index) {
+    if(index == 4) {
+      return null;
+    }
+    return AppBar(
+      title: Text(HomeCubit.get(context)
+          .titles[HomeCubit.get(context).currentIndex]),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.notifications),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.search),
+        ),
+      ],
     );
   }
 }

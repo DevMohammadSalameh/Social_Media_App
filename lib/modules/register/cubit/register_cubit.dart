@@ -28,7 +28,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
       print(value.user!.email);
       print(value.user!.uid);
       emit(RegisterSuccessState());
-      userCreate(name: name,email: email,phone: phone,uId: value.user!.uid.toString());
+      userCreate(
+          name: name,
+          email: email,
+          phone: phone,
+          uId: value.user!.uid.toString());
     }).catchError((error) {
       emit(RegisterErrorState(error));
     });
@@ -39,13 +43,31 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String name,
     required String phone,
     required String uId,
-     bool isVerified = false,
-  }){
-    UserModel model = UserModel(name, email, phone, uId,isVerified);
+    String image =
+        "https://i.pinimg.com/564x/95/14/a2/9514a2106bdf506dc2ed2047ae4ba908.jpg",
+    String cover =
+        "https://i.pinimg.com/564x/48/77/10/4877107db152d077b13b2c7b21623dfb.jpg",
+    String bio = "Write your bio ...",
+    bool isVerified = false,
+  }) {
+    UserModel model = UserModel(
+      name: name,
+      email: email,
+      phone: phone,
+      uId: uId,
+      isVerified: isVerified,
+      image: image,
+      cover: cover,
+      bio: bio,
+    );
 
-    FirebaseFirestore.instance.collection('users').doc(uId).set(model.toMap()).then((value) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .set(model.toMap())
+        .then((value) {
       emit(RegisterCreateUserSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(RegisterCreateUserErrorState(error.toString()));
     });

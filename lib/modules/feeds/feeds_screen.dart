@@ -232,25 +232,24 @@ class FeedsScreen extends StatelessWidget {
                                     fontSize: 20,
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "25",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Icon(
-                                          Icons.favorite_border_outlined,
-                                          color: Colors.white,
-                                          size: 14,
-                                        ),
-                                      ],
+                                    Text(
+                                      "25",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(
+                                      Icons.favorite_border_outlined,
+                                      color: Colors.white,
+                                      size: 14,
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -263,23 +262,19 @@ class FeedsScreen extends StatelessWidget {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "10 ",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Icon(
-                                          Icons.insert_comment_outlined,
-                                          color: Colors.white,
-                                          size: 14,
-                                        ),
-                                      ],
+                                    Text(
+                                      "10 ",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(
+                                      Icons.insert_comment_outlined,
+                                      color: Colors.white,
+                                      size: 14,
                                     ),
                                   ],
                                 ),

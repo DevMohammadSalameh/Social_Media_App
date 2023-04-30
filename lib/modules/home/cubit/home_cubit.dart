@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/models/user_model.dart';
 import 'package:social_app/modules/home/cubit/home_states.dart';
+import 'package:social_app/modules/new_post/new_post_screen.dart';
 import 'package:social_app/shared/components/constants.dart';
 
 import '../../chat/chat_screen.dart';
@@ -21,6 +22,7 @@ class HomeCubit extends Cubit<HomeStates> {
   List<Widget> screens = [
     const FeedsScreen(),
     const ChatScreen(),
+    const NewPostScreen(),
     const UsersScreen(),
     const SettingsScreen(),
   ];
@@ -28,20 +30,25 @@ class HomeCubit extends Cubit<HomeStates> {
   List<String> titles = [
     "Home",
     "Chat",
+    "Add Post",
     "Users",
     "Settings",
   ];
 
   void changeBottomNavBar(int index) {
-    currentIndex = index;
-    emit(HomeChangeBottomNavBarState());
+    if(index == 2) {
+      emit(HomeNewPostState());
+    } else {
+      currentIndex = index;
+      emit(HomeChangeBottomNavBarState());
+    }
   }
   UserModel? userModel;
   void getUserDate() {
     emit(HomeLoadingState());
     FirebaseFirestore.instance.collection("users").doc(uId).get().then((value) {
-      print("DocumentSnapshot : ${value.data()}");
-      print("user Id : $uId");
+      // print("DocumentSnapshot : ${value.data()}");
+      // print("user Id : $uId");
       userModel = UserModel.fromJson(value.data());
       emit(HomeSuccessState());
     }).catchError((error) {
