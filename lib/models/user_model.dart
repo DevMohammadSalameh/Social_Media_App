@@ -2,8 +2,8 @@ class UserModel {
   late String name;
   late String email;
   late String phone;
-  late String image;
-  late String cover;
+   String image ="https://i.pinimg.com/564x/75/ae/6e/75ae6eeeeb590c066ec53b277b614ce3.jpg";
+   String cover ="https://i.pinimg.com/564x/65/42/86/6542867f9f6907563dcd4e9756fa5027.jpg";
   late String bio;
   late String uId;
   late bool isVerified;
@@ -14,8 +14,8 @@ class UserModel {
       required this.phone,
       required this.uId,
       required this.isVerified,
-      required this.image,
-      required this.cover,
+       this.image = "https://i.pinimg.com/564x/75/ae/6e/75ae6eeeeb590c066ec53b277b614ce3.jpg",
+       this.cover = "https://i.pinimg.com/564x/65/42/86/6542867f9f6907563dcd4e9756fa5027.jpg",
       required this.bio});
 
   UserModel.fromJson(Map<String, dynamic>? json) {

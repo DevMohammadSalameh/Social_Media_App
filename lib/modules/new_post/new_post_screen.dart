@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/styles/colors.dart';
+
 class NewPostScreen extends StatelessWidget {
   const NewPostScreen({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class NewPostScreen extends StatelessWidget {
         onPressed: () {
           Navigator.pop(context);
         },
+        backgroundColor: primaryColor,
         child: const Icon(Icons.close),
       )
     );

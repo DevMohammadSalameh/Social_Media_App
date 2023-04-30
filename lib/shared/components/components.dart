@@ -74,7 +74,7 @@ Widget defaultFormField({
   void Function()? onTap,
   bool isPassword = false,
   required String? Function(String?)? validate,
-  required String label,
+  String? label,
   TextStyle? labelStyle,
   IconData? prefix,
   IconData? suffix,
@@ -92,7 +92,7 @@ Widget defaultFormField({
       onTap: onTap,
       validator: validate,
       decoration: InputDecoration(
-        label: Text(label),
+        label: label != null ?Text(label):null,
         labelStyle: labelStyle,
         suffixIcon: suffix != null
             ? IconButton(

@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/modules/edit_profile/edit_profile.dart';
 import 'package:social_app/modules/home/cubit/home_cubit.dart';
 import 'package:social_app/modules/home/cubit/home_states.dart';
 
@@ -19,7 +20,6 @@ class SettingsScreen extends StatelessWidget {
     return BlocConsumer<HomeCubit,HomeStates>(
     listener: (context, state) {},
     builder: (context, state) {
-      var userModel = HomeCubit.get(context).userModel;
       return Padding(
         padding: const EdgeInsets.only(top: 25),
         child: Stack(
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: primaryColor[50],
                     ),
-                    child: Image(image: NetworkImage(userModel!.cover),fit: BoxFit.fill,),
+                    child: Image(image: NetworkImage(userModel!.cover??"https://i.pinimg.com/564x/65/42/86/6542867f9f6907563dcd4e9756fa5027.jpg"),fit: BoxFit.fill,),
                   ),
                 ),
                 Expanded(
@@ -57,7 +57,8 @@ class SettingsScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                print("General");
+                                // print("General");
+                                navigateTo(context, EditProfileScreen());
                               },
                               child: Column(
                                 children: [
@@ -115,9 +116,8 @@ class SettingsScreen extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 print("Logout");
-
                                 uId = null;
-                                HomeCubit.get(context).userModel = null;
+                                userModel = null;
                                 HomeCubit.get(context).currentIndex = 0;
                                 navigateAndFinish(context, LoginScreen());
                               },
@@ -179,8 +179,8 @@ class SettingsScreen extends StatelessWidget {
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 child:  Image(
                                   image: NetworkImage(
-                                      userModel.image),
-                                  fit: BoxFit.contain,
+                                      userModel!.image??"https://i.pinimg.com/564x/75/ae/6e/75ae6eeeeb590c066ec53b277b614ce3.jpg"),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -189,7 +189,7 @@ class SettingsScreen extends StatelessWidget {
                             height: 10.0,
                           ),
                           Text(
-                            userModel.name,
+                            userModel!.name,
                             style: TextStyle(
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold,
@@ -199,7 +199,7 @@ class SettingsScreen extends StatelessWidget {
                             height: 10.0,
                           ),
                           Text(
-                            userModel.bio,
+                            userModel!.bio,
                             style: TextStyle(
                               fontSize: 15.0,
                               color: Colors.grey[900],
@@ -211,7 +211,7 @@ class SettingsScreen extends StatelessWidget {
                            Padding(
                              padding: const EdgeInsets.all(8.0),
                              child: Text(
-                              "@${userModel.uId}",
+                              "@${userModel!.uId}",
                               style: TextStyle(
                                 fontSize: 15.0,
                                 color: Colors.grey,
@@ -229,7 +229,9 @@ class SettingsScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          navigateTo(context, EditProfileScreen());
+                        },
                         icon: const Icon(
                           Icons.edit,
                           color: primaryColor,

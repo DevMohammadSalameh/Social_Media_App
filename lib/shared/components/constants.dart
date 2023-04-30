@@ -1,4 +1,6 @@
 
+import '../../models/user_model.dart';
+
 void printFullText(String text)
 {
   final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
@@ -6,3 +8,5 @@ void printFullText(String text)
 }
 
 String? uId;
+
+UserModel? userModel;

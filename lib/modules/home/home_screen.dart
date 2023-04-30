@@ -6,6 +6,7 @@ import 'package:social_app/modules/home/cubit/home_states.dart';
 import 'package:social_app/shared/styles/colors.dart';
 
 import '../../shared/components/components.dart';
+import '../../shared/components/constants.dart';
 import '../new_post/new_post_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getUserDate(),
+      create: (context) => HomeCubit()..getUserData(),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (context, state) {
           if(state is HomeNewPostState) {
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             body: ConditionalBuilder(
-              condition: HomeCubit.get(context).userModel != null,
+              condition: userModel != null,
               builder: (context) => Scaffold(
 
                 appBar: buildAppBar(context, HomeCubit.get(context).currentIndex),
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               fallback: (context) =>
-                  const Center(child: CircularProgressIndicator()),
+                  const Center(child: CircularProgressIndicator(color: primaryColor)),
             ),
           );
         },
