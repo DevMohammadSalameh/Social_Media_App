@@ -3,11 +3,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:social_app/modules/home/home_screen.dart';
 import 'package:social_app/shared/network/local/cache_helper.dart';
 import 'package:social_app/shared/styles/themes.dart';
 import 'firebase_options.dart';
+import 'modules/home/cubit/home_cubit.dart';
 import 'modules/login/loginScreen.dart';
 import 'shared/components/constants.dart';
 
@@ -18,11 +18,12 @@ void main() async {
   );
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
+
+
   Widget startWidget;
   uId = await CacheHelper.getData(key: 'uId');
   print("user Id : $uId");
   if (uId != null) {
-
     startWidget = const HomeScreen();
   } else {
     startWidget = const LoginScreen();
@@ -36,11 +37,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: LightTheme(context),
-      home: startWidget,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeCubit()..getUserData(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: LightTheme(context),
+        home: startWidget,
+      ),
     );
   }
 }

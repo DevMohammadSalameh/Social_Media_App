@@ -14,63 +14,60 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()..getUserData(),
-      child: BlocConsumer<HomeCubit, HomeStates>(
-        listener: (context, state) {
-          if(state is HomeNewPostState) {
-            navigateTo(context, const NewPostScreen());
-          }
-        },
-        builder: (context, state) {
-          return Scaffold(
-            body: ConditionalBuilder(
-              condition: userModel != null,
-              builder: (context) => Scaffold(
+    return  BlocConsumer<HomeCubit, HomeStates>(
+      listener: (context, state) {
+        if(state is HomeNewPostState) {
+          navigateTo(context, const NewPostScreen());
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: ConditionalBuilder(
+            condition: userModel != null,
+            builder: (context) => Scaffold(
 
-                appBar: buildAppBar(context, HomeCubit.get(context).currentIndex),
-                body: HomeCubit.get(context)
-                    .screens[HomeCubit.get(context).currentIndex],
-                bottomNavigationBar: BottomNavigationBar(
-                  items: const [
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.home),
-                      label: "Home",
-                      backgroundColor: primaryColor,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.chat),
-                      label: "Chats",
-                      backgroundColor: primaryColor,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.add_box_outlined),
-                      label: "Post",
-                      backgroundColor: primaryColor,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.person),
-                      label: "Users",
-                      backgroundColor: primaryColor,
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.settings),
-                      label: "Settings",
-                      backgroundColor: primaryColor,
-                    ),
-                  ],
-                  currentIndex: HomeCubit.get(context).currentIndex,
-                  onTap: (index) {
-                    HomeCubit.get(context).changeBottomNavBar(index);
-                  },
-                ),
+              appBar: buildAppBar(context, HomeCubit.get(context).currentIndex),
+              body: HomeCubit.get(context)
+                  .screens[HomeCubit.get(context).currentIndex],
+              bottomNavigationBar: BottomNavigationBar(
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: "Home",
+                    backgroundColor: primaryColor,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.chat),
+                    label: "Chats",
+                    backgroundColor: primaryColor,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.add_box_outlined),
+                    label: "Post",
+                    backgroundColor: primaryColor,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: "Users",
+                    backgroundColor: primaryColor,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.settings),
+                    label: "Settings",
+                    backgroundColor: primaryColor,
+                  ),
+                ],
+                currentIndex: HomeCubit.get(context).currentIndex,
+                onTap: (index) {
+                  HomeCubit.get(context).changeBottomNavBar(index);
+                },
               ),
-              fallback: (context) =>
-                  const Center(child: CircularProgressIndicator(color: primaryColor)),
             ),
-          );
-        },
-      ),
+            fallback: (context) =>
+            const Center(child: CircularProgressIndicator(color: primaryColor)),
+          ),
+        );
+      },
     );
   }
   AppBar? buildAppBar(context,index) {
